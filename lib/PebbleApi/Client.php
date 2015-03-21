@@ -42,8 +42,18 @@ class Client
 		}
 	}
 
-	public function remove(PinRecipientInterface $recipient, Pin $pin)
+	public function delete(PinRecipientInterface $recipient, Pin $pin)
 	{
-
+		$url = sprintf('/v1/%s/pins/%s',
+			$recipient->getType(),
+			$pin->getId()
+		);
+		$headers = array_merge(
+			array('Content-Type' => 'application/json'),
+			$recipient->getHeaders()
+		);
+		$response = $this->client->delete($url, [
+			'headers'       => $headers
+		]);
 	}
 }
