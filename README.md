@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/dav-m85/pebble-api-php.svg)](https://travis-ci.org/dav-m85/pebble-api-php)
+
 ## Installation
 
 With composer installed
