@@ -11,7 +11,17 @@ class Client
 
 	public function __construct() 
 	{
-		$this->client = new GuzzleClient(['base_url' => 'https://timeline-api.getpebble.com']);
+		$this->client = new GuzzleClient(array(
+			'base_url' => 'https://timeline-api.getpebble.com',
+			'defaults' => array(
+				'timeout' => 30
+			)
+		));
+	}
+
+	public function getGuzzleClient()
+	{
+		return $this->client;
 	}
 
 	/**
