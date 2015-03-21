@@ -4,6 +4,11 @@ namespace PebbleApi;
 
 use GuzzleHttp\Client as GuzzleClient;
 use PebbleApi\Exception\ApiException;
+use PebbleApi\Exception\InvalidApiKeyException;
+use PebbleApi\Exception\InvalidJsonException;
+use PebbleApi\Exception\InvalidUserTokenException;
+use PebbleApi\Exception\RateLimitExceededException;
+use PebbleApi\Exception\ServiceUnavailableException;
 
 class Client
 {
@@ -32,38 +37,60 @@ class Client
 	 */
 	public function put(PinRecipientInterface $recipient, Pin $pin)
 	{
-		$url = sprintf('/v1/%s/pins/%s',
+		$response = $this->client->put(
+			$this->buildUrl($recipient, $pin),
+			[
+				'headers'       => $recipient->getHeaders(),
+				'json'          => $pin->getData(),
+				'exceptions'    => false
+			]
+		);
+		return $this->processResponse($response);
+	}
+
+	/**
+	 * Delete a pin
+	 *
+	 * @param PinRecipientInterface $recipient
+	 * @param Pin $pin
+	 */
+	public function delete(PinRecipientInterface $recipient, Pin $pin)
+	{
+		$response = $this->client->delete(
+			$this->buildUrl($recipient, $pin),
+			[
+				'headers'       => $recipient->getHeaders(),
+				'exceptions'    => false
+			]
+		);
+		return $this->processResponse($response);
+	}
+
+	private function buildUrl(PinRecipientInterface $recipient, Pin $pin)
+	{
+		return sprintf('/v1/%s/pins/%s',
 			$recipient->getType(),
 			$pin->getId()
 		);
-		$headers = array_merge(
-			array('Content-Type' => 'application/json'),
-			$recipient->getHeaders()
-		);
-		$response = $this->client->put($url, [
-			'headers'       => $headers,
-			'body'          => $pin->toJson()
-		]);
+	}
+
+	private function processResponse($response)
+	{
 		switch($response->getStatusCode()){
 			case 200:
 				return true;
+			case 400:
+				throw new InvalidJsonException();
+			case 403:
+				throw new InvalidApiKeyException();
+			case 410:
+				throw new InvalidUserTokenException();
+			case 429:
+				throw new RateLimitExceededException();
+			case 503:
+				throw new ServiceUnavailableException();
 			default:
-				throw new ApiException($response->getBody()->__toString());
+				throw new ApiException($response->getBody());
 		}
-	}
-
-	public function delete(PinRecipientInterface $recipient, Pin $pin)
-	{
-		$url = sprintf('/v1/%s/pins/%s',
-			$recipient->getType(),
-			$pin->getId()
-		);
-		$headers = array_merge(
-			array('Content-Type' => 'application/json'),
-			$recipient->getHeaders()
-		);
-		$response = $this->client->delete($url, [
-			'headers'       => $headers
-		]);
 	}
 }

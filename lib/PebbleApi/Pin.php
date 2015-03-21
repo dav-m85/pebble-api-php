@@ -13,9 +13,9 @@ class Pin
         $this->data = $data;
     }
 
-    public function toJson()
+    public function getData()
     {
-        return json_encode($this->data);
+        return $this->data;
     }
 
     public function getId()
