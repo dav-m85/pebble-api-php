@@ -22,10 +22,13 @@ class ClientTest extends \PHPUnit_Framework_TestCase
         $dut->getGuzzleClient()->getEmitter()->attach($history);
         $dut->getGuzzleClient()->getEmitter()->attach($mock);
 
-        $pin = new \PebbleApi\Pin('test-1', array());
+        $pin = $this->prophesize('PebbleApi\PinInterface');
+        $pin->getId()->willReturn('test-1');
+        $pin->getData()->willReturn(array());
+
         $user= new \PebbleApi\User('user-1');
 
-        $dut->put($user, $pin);
+        $dut->put($user, $pin->reveal());
 
         $request = $history->getLastRequest();
         $headers = $request->getHeaders();
@@ -46,11 +49,13 @@ class ClientTest extends \PHPUnit_Framework_TestCase
         $dut->getGuzzleClient()->getEmitter()->attach($history);
         $dut->getGuzzleClient()->getEmitter()->attach($mock);
 
-        $pin = new \PebbleApi\Pin('test-1', array());
+        $pin = $this->prophesize('PebbleApi\PinInterface');
+        $pin->getId()->willReturn('test-1');
+        $pin->getData()->willReturn(array());
         $user= new \PebbleApi\User('user-1');
 
         $this->setExpectedException('\PebbleApi\Exception\InvalidUserTokenException');
-        $dut->put($user, $pin);
+        $dut->put($user, $pin->reveal());
     }
 
     public function testDeletePin()
@@ -64,10 +69,12 @@ class ClientTest extends \PHPUnit_Framework_TestCase
         $dut->getGuzzleClient()->getEmitter()->attach($history);
         $dut->getGuzzleClient()->getEmitter()->attach($mock);
 
-        $pin = new \PebbleApi\Pin('test-1', array());
+        $pin = $this->prophesize('PebbleApi\PinInterface');
+        $pin->getId()->willReturn('test-1');
+        $pin->getData()->willReturn(array());
         $user= new \PebbleApi\User('user-1');
 
-        $dut->delete($user, $pin);
+        $dut->delete($user, $pin->reveal());
 
         $request = $history->getLastRequest();
         $this->assertSame('DELETE', $request->getMethod());

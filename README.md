@@ -1,5 +1,14 @@
 [![Build Status](https://travis-ci.org/dav-m85/pebble-api-php.svg)](https://travis-ci.org/dav-m85/pebble-api-php)
 
+Library to interact with Pebble Timeline API.
+
+## Why should I use it ?
+Because you love when ...
+* It's tested code
+* It can be installed with composer
+* It follows semver
+* It's already used in production
+
 ## Installation
 
 With composer installed
@@ -10,16 +19,22 @@ php composer.phar require dav-m85/pebble-api-php:dev-master
 ## Usage
 
 ```php
-$client = new PebbleApi\Client();
-
-// Create (or update) a pin
-$pin = new PebbleApi\Pin("reservation-1395203", array(
-	"id" => "reservation-1395203",
-    "time" => "2014-03-07T09:01:10.229Z",
+// Define a pin with an Array
+$pin = new PebbleApi\Pin("reservation-1395203", new \DateTime("2014-03-07T09:01:10.229Z"), array(
     "layout" => array(
     	...
     )
 ));
+
+// Or using object oriented approach (still work in progress)
+$layout = new PebbleApi\Layout\GenericLayout();
+$layout->setForegroundColor(PebbleApi\LayoutInterface::COLOR_BLUE);
+$pin = new PebbleApi\Pin("reservation-1395203", new \DateTime("2014-03-07T09:01:10.229Z"), $layout);
+
+// Then spawn a client
+$client = new PebbleApi\Client();
+
+// Create (or update) a pin
 $user = new PebbleApi\User($userToken);
 $client->put($user, $pin);
 
