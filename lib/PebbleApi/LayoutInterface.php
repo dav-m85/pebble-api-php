@@ -7,6 +7,11 @@ namespace PebbleApi;
  */
 interface LayoutInterface
 {
+    /**
+     * @return array Array representation of the Pin object.
+     */
+    public function getData();
+
     const
         TYPE_GENERIC_PIN = 'genericPin',
         TYPE_CALENDAR_PIN = 'calendarPin',
