@@ -1,6 +1,7 @@
 [![Build Status](https://travis-ci.org/dav-m85/pebble-api-php.svg)](https://travis-ci.org/dav-m85/pebble-api-php)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/dav-m85/pebble-api-php/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/dav-m85/pebble-api-php/?branch=master)
 [![Code Coverage](https://scrutinizer-ci.com/g/dav-m85/pebble-api-php/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/dav-m85/pebble-api-php/?branch=master)
+[![Total Downloads](https://poser.pugx.org/dav-m85/pebble-api-php/downloads)](https://packagist.org/packages/dav-m85/pebble-api-php)
 
 Library to interact with Pebble Timeline API.
 
