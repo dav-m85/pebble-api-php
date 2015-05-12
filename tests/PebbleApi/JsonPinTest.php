@@ -8,11 +8,9 @@ class JsonPinTest extends \PHPUnit_Framework_TestCase
         $data = $dut->getData();
 
         $this->assertSame(array(
-
-  'id' => "test",
-  'time' => "2015-05-12T13:14:07Z",
-  'foo' => "bar"
-
+            'id' => "test",
+            'time' => "2015-05-12T13:14:07Z",
+            'foo' => "bar"
         ), $data);
     }
 }
