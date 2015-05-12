@@ -1,4 +1,7 @@
 [![Build Status](https://travis-ci.org/dav-m85/pebble-api-php.svg)](https://travis-ci.org/dav-m85/pebble-api-php)
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/dav-m85/pebble-api-php/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/dav-m85/pebble-api-php/?branch=master)
+
+**[WIP] This library is still under development**. Feel free to contribute !
 
 Library to interact with Pebble Timeline API.
 
