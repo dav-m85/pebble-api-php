@@ -44,39 +44,50 @@ class Pin
      */
     private $actions = array();
 
+    /**
+     * @param $id
+     * @param \DateTime $time
+     * @param Layout $layout
+     */
     public function __construct(
         $id,
         \DateTime $time,
-        Layout $layout,
-        $duration = null,
-        Notification $createNotification = null,
-        Notification $updateNotification = null,
-        array $reminders = null,
-        array $actions = null
+        LayoutInterface $layout
     ) {
-        $this -> layout = $layout;
-        $this -> duration = $duration;
-        $this -> createNotification = $createNotification;
-        $this -> updateNotification = $updateNotification;
-        $this -> pinAction = $pinAction;
+        $this->id = $id;
+        $this->time = $time;
+        $this->layout = $layout;
     }
 
+    /**
+     * {@inheritdoc}
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
     public function getData()
     {
-        $createNotification = $this -> createNotification ? $this -> createNotification -> getData() : null;
-        $updateNotification = $this -> updateNotification ? $this -> updateNotification -> getData() : null;
-
-        return array_filter(['id' => $this -> id, 'time' => $this -> time, 'duration' => $this -> duration,'createNotification' => $createNotification, 'updateNotification' => $updateNotification,'layout' => $this -> layout -> getData(), 'reminders' => $this -> reminders, '' ]);
+        return array_filter([
+            'id' => $this->id,
+            'time' => $this->time->format('Y-m-d\TH:i:s\Z'),
+            'duration' => $this->duration,
+            'layout' => $this->layout->getData()
+        ]);
     }
 
-    public function addReminder(Reminder $reminder)
+    /**
+     * @param int $duration The duration of the event the pin represents, in minutes.
+     * @return Pin
+     */
+    public function setDuration($duration)
     {
-        if (count($this -> reminders) < 3 ) {
-            array_push($this -> reminders, $reminder -> getData());
+        $this->duration = $duration;
 
-            return true;
-        }
-
-        return false;
+        return $this;
     }
 }

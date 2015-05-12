@@ -33,6 +33,7 @@ $pin = new PebbleApi\Pin("reservation-1395203", new \DateTime("2014-03-07T09:01:
 $layout = new PebbleApi\Layout\GenericLayout();
 $layout->setForegroundColor(PebbleApi\LayoutInterface::COLOR_BLUE);
 $pin = new PebbleApi\Pin("reservation-1395203", new \DateTime("2014-03-07T09:01:10.229Z"), $layout);
+$pin->setDuration(120);
 
 // Then spawn a client
 $client = new PebbleApi\Client();
