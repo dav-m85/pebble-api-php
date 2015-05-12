@@ -11,8 +11,8 @@ class OpenWatchApp implements \PebbleApi\ActionInterface
     private $launchCode;
 
     /**
-     * @param string $title The name of the action that appears on the watch.
-     * @param int $launchCode
+     * @param string $title      The name of the action that appears on the watch.
+     * @param int    $launchCode
      */
     public function __construct($title, $launchCode)
     {

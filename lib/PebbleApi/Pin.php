@@ -47,7 +47,7 @@ class Pin
     /**
      * @param $id
      * @param \DateTime $time
-     * @param Layout $layout
+     * @param Layout    $layout
      */
     public function __construct(
         $id,
@@ -81,7 +81,7 @@ class Pin
     }
 
     /**
-     * @param int $duration The duration of the event the pin represents, in minutes.
+     * @param  int $duration The duration of the event the pin represents, in minutes.
      * @return Pin
      */
     public function setDuration($duration)
